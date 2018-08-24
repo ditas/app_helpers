@@ -16,5 +16,6 @@
         sasl,
         lager
     ]},
+    {mod, {app_helpers_app, []}},
     {env, []}
 ]}.
