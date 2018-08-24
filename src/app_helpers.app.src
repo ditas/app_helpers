@@ -14,7 +14,8 @@
         kernel,
         stdlib,
         sasl,
-        lager
+        lager,
+        inets
     ]},
     {mod, {app_helpers_app, []}},
     {env, []}
