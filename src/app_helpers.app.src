@@ -1,0 +1,20 @@
+%%%-------------------------------------------------------------------
+%%% @author pravosudov
+%%% @copyright (C) 2017, <COMPANY>
+%%% @doc
+%%%
+%%% @end
+%%% Created : 04. Sep 2017 15:07
+%%%-------------------------------------------------------------------
+{ application, app_helpers, [
+    {description, ""},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {applications, [
+        kernel,
+        stdlib,
+        sasl,
+        lager
+    ]},
+    {env, []}
+]}.
