@@ -15,8 +15,6 @@
     store_fields/3
 ]).
 
--define(URL, "http://localhost:8086/write?db=tracks").
-
 store(MetricName, Tags, Value) ->
     TagsStr = proplist_to_str(Tags),
     URL = get_url(),
@@ -56,6 +54,8 @@ val_to_str(V) when is_float(V) ->
     float_to_list(V);
 val_to_str(V) when is_atom(V) ->
     atom_to_list(V);
+val_to_str(V) when is_binary(V) ->
+    binary_to_list(V);
 val_to_str(V) ->
     V.
 
