@@ -72,9 +72,28 @@ val_to_jsx_compatible(Val) when is_integer(Val) ->
 val_to_jsx_compatible(Val) when is_float(Val) ->
     Val;
 val_to_jsx_compatible(Val) when is_list(Val) ->
-    list_to_binary(Val);
+    case catch list_to_binary(Val) of
+        {'EXIT', _Reason} -> Val;
+        List -> List
+    end;
 val_to_jsx_compatible(Val) when is_binary(Val) ->
+    Val;
+val_to_jsx_compatible(Val) when is_tuple(Val) ->
+    tuple_to_list_recur(Val);
+val_to_jsx_compatible(Val) when is_atom(Val) ->
     Val.
+
+tuple_to_list_recur(Val) when is_tuple(Val) ->
+    List = tuple_to_list(Val),
+    lists:foldl(fun(L, Acc) ->
+        case is_tuple(L) of
+            true ->
+                L1 = tuple_to_list_recur(L),
+                Acc ++ [L1];
+            false ->
+                Acc ++ [val_to_jsx_compatible(L)]
+        end
+    end, [], List).
 
 is_numeric(Val) ->
     Float = (catch binary_to_float(Val)),
