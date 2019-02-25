@@ -72,7 +72,7 @@ val_to_jsx_compatible(Val) when is_integer(Val) ->
 val_to_jsx_compatible(Val) when is_float(Val) ->
     Val;
 val_to_jsx_compatible(Val) when is_list(Val) ->
-    list_to_bin(Val);
+    list_to_binary(Val);
 val_to_jsx_compatible(Val) when is_binary(Val) ->
     Val.
 
