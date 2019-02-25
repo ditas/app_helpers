@@ -14,6 +14,7 @@
     val_to_list/1,
     val_to_float/1,
     val_to_integer/1,
+    val_to_jsx_compatible/1,
     list_to_date/1,
     list_to_datetime/1,
     bin_to_datetime/1
@@ -65,6 +66,15 @@ val_to_integer(Val) when is_binary(Val) ->
     end;
 val_to_integer(Val) when is_list(Val) ->
     val_to_integer(list_to_binary(Val)).
+
+val_to_jsx_compatible(Val) when is_integer(Val) ->
+    Val;
+val_to_jsx_compatible(Val) when is_float(Val) ->
+    Val;
+val_to_jsx_compatible(Val) when is_list(Val) ->
+    list_to_bin(Val);
+val_to_jsx_compatible(Val) when is_binary(Val) ->
+    Val.
 
 is_numeric(Val) ->
     Float = (catch binary_to_float(Val)),
