@@ -17,6 +17,7 @@
     val_to_jsx_compatible/1,
     list_to_date/1,
     list_to_datetime/1,
+    list_to_seconds/1,
     bin_to_datetime/1
 ]).
 
@@ -111,6 +112,14 @@ list_to_datetime(List) ->
     [Y, M, D] = binary:split(BinDate, <<"-">>, [global]),
     [H, Min, S] = binary:split(BinTime, <<":">>, [global]),
     {{binary_to_integer(Y), binary_to_integer(M), binary_to_integer(D)}, {binary_to_integer(H), binary_to_integer(Min), binary_to_integer(S)}}.
+
+list_to_seconds(List) ->
+    Bin = list_to_binary(List),
+    [BinH, BinM, BinS] = binary:split(Bin, <<":">>, [global]),
+    H = binary_to_integer(BinH),
+    M = binary_to_integer(BinM),
+    S = binary_to_integer(BinS),
+    H*3600 + M*60 + S.
 
 bin_to_datetime(Bin) ->
     [BinDate, BinTime] = binary:split(Bin, <<" ">>, [global]),
